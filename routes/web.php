@@ -29,3 +29,6 @@ Route::middleware('verified')->group(function() {
 //メール送信用
 Route::get('contact', 'ContactController@index');
 Route::post('contact', 'ContactController@send');
+
+//drill(練習登録画面表示用)
+Route::get('/drills/new', 'DrillsController@new')->name(('drills.new'));
