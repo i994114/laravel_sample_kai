@@ -24,8 +24,9 @@ class SampleRequest extends FormRequest
     public function rules()
     {
         return [
-            //'title' => 'required|string|max:255',
-            //'category_name' => 'requred|string|max:255',
+            'title' => 'required|string|max:255',
+            'category_name' => 'required|string|max:255',
+            'description' => 'string|max:255'
         ];
     }
 

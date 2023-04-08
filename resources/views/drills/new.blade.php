@@ -38,6 +38,22 @@
                 </div>
               </div>
 
+              @for ($i = 1; $i <= 10; $i++)
+                <div class="form-group row">
+                  <label for="problem{{ $i - 1 }}" class="col-md-4 col-form-label text-md-right">{{ __('Problem').$i }}</label>
+
+                  <div class="col-md-6">
+                    <input id="problem{{ $i - 1 }}" type="text" class="form-control @error('problem'.($i-1)) is-invalid @enderror" name="problem{{ $i-1 }}" value="aaaaaa" autocomplete="problem{{ $i - 1 }}" autofocus>
+                    
+                    @error('problem'.($i - 1))
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                  </div>
+                </div>
+              @endfor
+
               <div class="form-group row mb-0">
                 <div class="col-md-6 offset-md-4">
                   <button type="submit" class="btn btn-primary">

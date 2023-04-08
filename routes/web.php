@@ -30,7 +30,6 @@ Route::middleware('verified')->group(function() {
 Route::get('contact', 'ContactController@index');
 Route::post('contact', 'ContactController@send');
 
-//drill(練習登録画面表示用)
+//drill
 Route::get('/drills/new', 'DrillsController@new')->name(('drills.new'));
-
 Route::post('/drills/new', 'DrillsController@create');
