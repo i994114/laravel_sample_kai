@@ -33,3 +33,4 @@ Route::post('contact', 'ContactController@send');
 //drill
 Route::get('/drills/new', 'DrillsController@new')->name(('drills.new'));
 Route::post('/drills/new', 'DrillsController@create');
+Route::get('/drills', 'DrillsController@index')->name('drills');

@@ -47,4 +47,9 @@ class DrillsController extends Controller
         return redirect('/drills/new')->with('flash_message', _('Registered.'));
 
     }
+
+    public function index() {
+        $drills = Drill::all();
+        return view('drills.index', ['drills' => $drills]);
+    }
 }
