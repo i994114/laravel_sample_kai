@@ -5,6 +5,10 @@
   "Category": "カテゴリー",
   "Register": "登録",
   "Registered. ": "変更しました",
-  "Invalid operation was performed": "無効な操作です"
+  "Invalid operation was performed.": "無効な操作です",
+  "Deleted.": "削除しました！",
+  "Go Practice": "練習する",
+  "Go Delete": "削除する"
+
 
 }

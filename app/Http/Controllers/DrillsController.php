@@ -68,12 +68,28 @@ class DrillsController extends Controller
 
     public function update(Request $request, $id) {
         if (!ctype_digit($id)) {
-            return redirect('/drills/new')->with('flash_message', __('Invalid operation was performed '));;
+            return redirect('/drills/new')->with('flash_message', __('Invalid operation was performed.'));;
         }
 
         $drill = Drill::find($id);
         $drill->fill($request->all())->save();
         
         return redirect('/drills')->with('flash_message', __('Registered. '));
+    }
+
+    public function destroy($id) {
+        if (!ctype_digit($id)) {
+            return redirect('/drills/new')->with('flash_message', __('Invalid operation was performed.'));
+        }
+
+        //まず外部キーをもつレコードから削除
+        $problems = Problem::all()->where('drill_id', $id);
+        foreach($problems as $problem) {
+            $problem->delete();
+        }
+        //最後に大元のdrillを削除
+        Drill::find($id)->delete();
+        
+        return redirect('/drills')->with('flash_message', __('Deleted.'));
     }
 }
