@@ -52,4 +52,28 @@ class DrillsController extends Controller
         $drills = Drill::all();
         return view('drills.index', ['drills' => $drills]);
     }
+
+    public function edit($id) {
+        if (!ctype_digit($id)) {
+            return redirect('/drills/new')->with('flash_message', __('Invalid operation was performed.'));
+        }
+
+        $drill = Drill::find($id);
+        $problem = Problem::where('drill_id', $id)->get()->pluck('description');
+
+        //Log::debug($problem);
+        
+        return view('drills.edit', ['drill' => $drill, 'problem' => $problem]);
+    }
+
+    public function update(Request $request, $id) {
+        if (!ctype_digit($id)) {
+            return redirect('/drills/new')->with('flash_message', __('Invalid operation was performed '));;
+        }
+
+        $drill = Drill::find($id);
+        $drill->fill($request->all())->save();
+        
+        return redirect('/drills')->with('flash_message', __('Registered. '));
+    }
 }

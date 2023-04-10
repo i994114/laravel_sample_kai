@@ -34,3 +34,5 @@ Route::post('contact', 'ContactController@send');
 Route::get('/drills/new', 'DrillsController@new')->name(('drills.new'));
 Route::post('/drills/new', 'DrillsController@create');
 Route::get('/drills', 'DrillsController@index')->name('drills');
+Route::get('/drills/{id}/edit', 'DrillsController@edit')->name('drills.edit');
+Route::post('/drills/{id}', 'DrillsController@update')->name('drills.update');
