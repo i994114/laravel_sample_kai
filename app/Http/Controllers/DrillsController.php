@@ -92,4 +92,14 @@ class DrillsController extends Controller
         
         return redirect('/drills')->with('flash_message', __('Deleted.'));
     }
+
+    public function show($id) {
+        if (!ctype_digit($id)) {
+            return redirect('drills')->with('flash_message', 'Invalid operation was performed.');
+        }
+
+        $drill = Drill::find($id);
+
+        return view('drills/show', ['drill' => $drill]);
+    }
 }
