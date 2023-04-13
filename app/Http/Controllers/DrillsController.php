@@ -99,7 +99,10 @@ class DrillsController extends Controller
         }
 
         $drill = Drill::find($id);
+        $problem = Problem::all()->where('drill_id', $id)->pluck('description');
+        
+        //Log::debug($problem);
 
-        return view('drills/show', ['drill' => $drill]);
+        return view('drills/show', ['drill' => $drill, 'problem' => $problem]);
     }
 }
