@@ -42,4 +42,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new \App\Notifications\VerifyEmailJapanese);
     }
+
+    //ログインユーザのみ操作可能にするための処理
+    public function drills()
+    {
+        return $this->hasMany('App\Drill');
+    }
 }

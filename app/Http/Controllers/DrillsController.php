@@ -7,6 +7,7 @@ use App\Problem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\SampleRequest;
+use Illuminate\Support\Facades\Auth;
 
 class DrillsController extends Controller
 {
@@ -19,11 +20,14 @@ class DrillsController extends Controller
         $drill = new Drill;
         $problem = new Problem;
 
+        //$requestに入るのは入力フォームの値のみ
         //Log::debug($request);
 
         //drillテーブルの保存
         $drill->title = $request->title;
         $drill->category_name = $request->category_name;
+        $user = Auth::user();
+        $drill->user_id = $user['id'];
         $drill->save();
 
         //saveしたidを取得
@@ -105,4 +109,12 @@ class DrillsController extends Controller
 
         return view('drills/show', ['drill' => $drill, 'problem' => $problem]);
     }
+
+    public function mypage()
+    {
+        $drills = Auth::user()->drills()->get();
+        Log::debug($drills);
+        return view('drills.mypage', compact('drills'));
+    }
+    
 }
