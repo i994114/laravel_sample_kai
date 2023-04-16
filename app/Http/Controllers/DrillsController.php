@@ -62,10 +62,10 @@ class DrillsController extends Controller
             return redirect('/drills/new')->with('flash_message', __('Invalid operation was performed.'));
         }
 
-        $drill = Drill::find($id);
+        $drill = Auth::user()->Drill::find($id);
         $problem = Problem::where('drill_id', $id)->get()->pluck('description');
 
-        //Log::debug($problem);
+        Log::debug($problem);
         
         return view('drills.edit', ['drill' => $drill, 'problem' => $problem]);
     }
@@ -75,7 +75,7 @@ class DrillsController extends Controller
             return redirect('/drills/new')->with('flash_message', __('Invalid operation was performed.'));;
         }
 
-        $drill = Drill::find($id);
+        $drill = Auth::user()->Drill::find($id);
         $drill->fill($request->all())->save();
         
         return redirect('/drills')->with('flash_message', __('Registered. '));
@@ -87,7 +87,7 @@ class DrillsController extends Controller
         }
 
         //まず外部キーをもつレコードから削除
-        $problems = Problem::all()->where('drill_id', $id);
+        $problems = Auth::user()->Problem::all()->where('drill_id', $id);
         foreach($problems as $problem) {
             $problem->delete();
         }
