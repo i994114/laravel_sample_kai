@@ -2,7 +2,14 @@
 
 @section('content')
   <div class="container">
-    <h2>{{ __('Drill list') }}</h2>
+    <h2>
+      {{ __('My Drill list') }}(全体の練習一覧は
+      <a href="{{ route('drills') }}">
+        こちら
+      </a>
+      )
+    </h2>
+    
     <div class="row">
       @foreach ($drills as $drill)
         <div class="col-sm-6">

@@ -2,7 +2,11 @@
 
 @section('content')
   <div class="container">
-    <h2>{{ __('Drill list') }}</h2>
+    <h2>
+      {{ __('Drill list') }}(マイページは
+      <a href="{{ route('drills.mypage') }}">こちら</a>
+      )
+    </h2>
     <div class="row">
       @foreach ($drills as $drill)
         <div class="col-sm-6">
