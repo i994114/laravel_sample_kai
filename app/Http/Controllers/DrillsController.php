@@ -53,7 +53,7 @@ class DrillsController extends Controller
     }
 
     public function index() {
-        $drills = Drill::all();
+        $drills = Drill::orderBy('created_at')->paginate(10);
         return view('drills.index', ['drills' => $drills]);
     }
 
@@ -112,8 +112,9 @@ class DrillsController extends Controller
 
     public function mypage()
     {
-        $drills = Auth::user()->drills()->get();
-        Log::debug($drills);
+        $drills = Auth::user()->drills()->paginate(10);
+        
+        //Log::debug($drills);
         return view('drills.mypage', compact('drills'));
     }
     

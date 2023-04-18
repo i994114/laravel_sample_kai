@@ -22,4 +22,8 @@
       @endforeach
     </div>
   </div>
+  <div class="d-flex justify-content-center" style="margin-top: 20px">
+    {{ $drills->links() }}
+  </div>
+  
 @endsection
