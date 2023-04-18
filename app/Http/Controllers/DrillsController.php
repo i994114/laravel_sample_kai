@@ -58,14 +58,12 @@ class DrillsController extends Controller
     }
 
     public function edit($id) {
+        
         if (!ctype_digit($id)) {
             return redirect('/drills/new')->with('flash_message', __('Invalid operation was performed.'));
         }
-
-        $drill = Auth::user()->Drill::find($id);
+        $drill = Auth::user()->drills->find($id);
         $problem = Problem::where('drill_id', $id)->get()->pluck('description');
-
-        Log::debug($problem);
         
         return view('drills.edit', ['drill' => $drill, 'problem' => $problem]);
     }
@@ -75,19 +73,22 @@ class DrillsController extends Controller
             return redirect('/drills/new')->with('flash_message', __('Invalid operation was performed.'));;
         }
 
-        $drill = Auth::user()->Drill::find($id);
+        $drill = Auth::user()->drills->find($id);
         $drill->fill($request->all())->save();
         
         return redirect('/drills')->with('flash_message', __('Registered. '));
     }
 
     public function destroy($id) {
+        
         if (!ctype_digit($id)) {
             return redirect('/drills/new')->with('flash_message', __('Invalid operation was performed.'));
         }
 
         //まず外部キーをもつレコードから削除
-        $problems = Auth::user()->Problem::all()->where('drill_id', $id);
+        $drill = Auth::user()->drills->find($id);
+        $problems = Problem::where('drill_id', $drill->id)->get();
+        
         foreach($problems as $problem) {
             $problem->delete();
         }

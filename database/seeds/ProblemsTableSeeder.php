@@ -14,8 +14,8 @@ class ProblemsTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=115; $i<148; $i++) {
-            for ($j=1; $j<10; $j++) {
+        for ($i=149; $i<158; $i++) {
+            for ($j=0; $j<10; $j++) {
                 DB::table('problems')->insert([
                     'description' => Str::random(8),
                     'drill_id' => $i,

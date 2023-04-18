@@ -7,4 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Problem extends Model
 {
     protected $fillabel = ['description'];
+
 }
+
