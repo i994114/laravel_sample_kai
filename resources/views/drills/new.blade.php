@@ -56,6 +56,9 @@
 
               <div class="form-group row mb-0">
                 <div class="col-md-6 offset-md-4">
+                  <button type="button" class="btn btn-secondary" onclick="history.back();">
+                    {{ __('Back') }}
+                  </button>
                   <button type="submit" class="btn btn-primary">
                     {{ __('Register') }}
                   </button>

@@ -1831,6 +1831,9 @@ __webpack_require__.r(__webpack_exports__);
           endSound.play();
         }
       }, 1000);
+    },
+    backMove: function backMove() {
+      history.back();
     }
   }
 });
@@ -1865,7 +1868,15 @@ var render = function render() {
     staticClass: "badge badge-success"
   }, [_vm._v(_vm._s(_vm.categoryName))])]), _vm._v(" "), _c("div", {
     staticClass: "card-body text-center drill-body"
-  }, [!_vm.isStarted ? _c("button", {
+  }, [_c("button", {
+    staticClass: "btn btn-secondary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.backMove
+    }
+  }, [_vm._v("BACK")]), _vm._v(" "), !_vm.isStarted ? _c("button", {
     staticClass: "btn btn-primary",
     on: {
       click: _vm.doDrill

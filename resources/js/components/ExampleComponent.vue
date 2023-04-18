@@ -6,6 +6,7 @@
                     <div class="card-header">{{ title }} <span class="badge badge-success">{{ categoryName }}</span></div>
 
                     <div class="card-body text-center drill-body">
+                        <button type="button" class="btn btn-secondary" @click="backMove">BACK</button>
                         <button class="btn btn-primary " @click="doDrill" v-if="!isStarted">START</button>
                         <p v-if="isCountDown" style="font-size: 100px;">{{ countDownNum }}</p>
 
@@ -161,6 +162,9 @@
                         endSound.play()
                     }
                 }, 1000)
+            },
+            backMove: function() {
+                history.back()
             }
         }
     }
