@@ -58,7 +58,9 @@ class DrillsController extends Controller
     }
 
     public function edit($id) {
-        
+        $drill = new Drill;
+        $problem = new Problem;
+
         if (!ctype_digit($id)) {
             return redirect('/drills/new')->with('flash_message', __('Invalid operation was performed.'));
         }
@@ -69,13 +71,28 @@ class DrillsController extends Controller
     }
 
     public function update(Request $request, $id) {
+        
         if (!ctype_digit($id)) {
             return redirect('/drills/new')->with('flash_message', __('Invalid operation was performed.'));;
         }
+         
+        //drillテーブルを更新
+        $drill = Drill::find($id);
+        $drill->title = $request->title;
+        $drill->category_name = $request->category_name;
+        //Log::debug($drill->title);
 
-        $drill = Auth::user()->drills->find($id);
-        $drill->fill($request->all())->save();
-        
+        $drill->save();
+
+        //更新対象のdrill_idをもったProblem idを取得
+        $problems = Problem::where('drill_id',$id)->get();
+
+        for($i=0; $i<10; $i++) {
+            $problem = $problems[$i];
+            $problem->description = $request['problem'.$i];
+            $problem->save();
+        }
+
         return redirect('/drills')->with('flash_message', __('Registered. '));
     }
 

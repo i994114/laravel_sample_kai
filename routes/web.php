@@ -41,3 +41,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/drills/{id}', 'DrillsController@show')->name('drills.show');
     Route::get('/mypage', 'DrillsController@mypage')->name('drills.mypage');
 });
+
+Route::get('/test', function () {
+    return view('test');
+});
