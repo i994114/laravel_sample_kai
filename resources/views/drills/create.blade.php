@@ -1,6 +1,6 @@
 @component('components.form')
   @slot('route')
-    {{ route('drills.new') }}
+    {{ route('drills.store') }}
   @endslot
 
   @slot('title')

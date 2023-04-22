@@ -31,6 +31,7 @@ Route::get('contact', 'ContactController@index');
 Route::post('contact', 'ContactController@send');
 
 //drill
+/*
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/drills/new', 'DrillsController@new')->name(('drills.new'));
     Route::post('/drills/new', 'DrillsController@create');
@@ -41,7 +42,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/drills/{id}', 'DrillsController@show')->name('drills.show');
     Route::get('/mypage', 'DrillsController@mypage')->name('drills.mypage');
 });
+*/
 
+//コンポーネント練習用
 Route::get('/test', function () {
     return view('test');
 });
+
+Route::resource('drills', 'DrillsController');
