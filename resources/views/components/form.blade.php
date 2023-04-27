@@ -9,6 +9,7 @@
 
           <div class="card-body">
             <form method="POST" action="{{ $route }}">
+              @method('PATCH')
               @csrf
 
               <div class="form-group row">

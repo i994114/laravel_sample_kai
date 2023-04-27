@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Drill;
 use App\Problem;
 use Illuminate\Support\Facades\Log;
-use App\Http\Requests\SampleRequest;
 use Illuminate\Support\Facades\Auth;
 
 class DrillsController extends Controller
@@ -18,7 +17,8 @@ class DrillsController extends Controller
      */
     public function index()
     {
-        //
+        $drills = Drill::orderBy('created_at')->paginate(10);
+        return view('drills.index', ['drills' => $drills]);
     }
 
     /**
@@ -84,7 +84,16 @@ class DrillsController extends Controller
      */
     public function show($id)
     {
-        //
+        if (!ctype_digit($id)) {
+            return redirect('drills')->with('flash_message', 'Invalid operation was performed.');
+        }
+
+        $drill = Drill::find($id);
+        $problem = Problem::all()->where('drill_id', $id)->pluck('description');
+        
+        //Log::debug($problem);
+
+        return view('drills/show', ['drill' => $drill, 'problem' => $problem]);
     }
 
     /**
@@ -95,7 +104,16 @@ class DrillsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $drill = new Drill;
+        $problem = new Problem;
+
+        if (!ctype_digit($id)) {
+            return redirect('/drills/create')->with('flash_message', __('Invalid operation was performed.'));
+        }
+        $drill = Auth::user()->drills->find($id);
+        $problem = Problem::where('drill_id', $id)->get()->pluck('description');
+        
+        return view('drills.edit', ['drill' => $drill, 'problem' => $problem]);
     }
 
     /**
@@ -107,7 +125,29 @@ class DrillsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (!ctype_digit($id)) {
+            return redirect('/drills/create')->with('flash_message', __('Invalid operation was performed.'));;
+        }
+         
+        //drillテーブルを更新
+        $drill = Drill::find($id);
+        $drill->title = $request->title;
+        $drill->category_name = $request->category_name;
+        //Log::debug($drill->title);
+
+        $drill->save();
+
+        //更新対象のdrill_idをもったProblem idを取得
+        $problems = Problem::where('drill_id',$id)->get();
+
+        for($i=0; $i<10; $i++) {
+            $problem = $problems[$i];
+            $problem->description = $request['problem'.$i];
+            $problem->save();
+        }
+
+        return redirect('/drills')->with('flash_message', __('Registered. '));
+
     }
 
     /**
@@ -118,6 +158,29 @@ class DrillsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (!ctype_digit($id)) {
+            return redirect('/drills/new')->with('flash_message', __('Invalid operation was performed.'));
+        }
+
+        //まず外部キーをもつレコードから削除
+        $drill = Auth::user()->drills->find($id);
+        $problems = Problem::where('drill_id', $drill->id)->get();
+        
+        foreach($problems as $problem) {
+            $problem->delete();
+        }
+        //最後に大元のdrillを削除
+        Drill::find($id)->delete();
+        
+        return redirect('/drills')->with('flash_message', __('Deleted.'));
+
+    }
+
+    public function mypage()
+    {
+        $drills = Auth::user()->drills()->paginate(10);
+        
+        //Log::debug($drills);
+        return view('drills.mypage', compact('drills'));
     }
 }

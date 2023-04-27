@@ -49,4 +49,9 @@ Route::get('/test', function () {
     return view('test');
 });
 
-Route::resource('drills', 'DrillsController');
+
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::resource('drills', 'DrillsController');
+    Route::get('/mypage', 'DrillsController@mypage')->name('drills.mypage');
+});

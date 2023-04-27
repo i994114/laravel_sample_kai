@@ -4,7 +4,7 @@
   <div class="container">
     <h2>
       {{ __('My Drill list') }}(全体の練習一覧は
-      <a href="{{ route('drills') }}">
+      <a href="{{ route('drills.index') }}">
         こちら
       </a>
       )
@@ -18,7 +18,7 @@
               <h3 class="card-title">{{ $drill->title }}</h3>
               <a href="{{ route('drills.show', $drill->id ) }}" class="btn btn-primary">{{ __('Go Practice') }}</a>
               <a href="{{ route('drills.edit', $drill->id ) }}" class="btn btn-primary">{{ __('Go Edit') }}</a>
-              <form action="{{ route('drills.delete', $drill->id) }}" method="post" class="d-inline">
+              <form action="{{ route('drills.destroy', $drill->id) }}" method="post" class="d-inline">
                 @csrf
                 <button class="btn btn-danger" onclick='return confirm("削除しますか？");'>{{ __('Go Delete') }}</button>
               </form>
