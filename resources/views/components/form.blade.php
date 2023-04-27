@@ -9,7 +9,9 @@
 
           <div class="card-body">
             <form method="POST" action="{{ $route }}">
-              @method('PATCH')
+              @if(\Illuminate\Support\Facades\Route::is('drills.edit'))
+                @method('PATCH')
+              @endif
               @csrf
 
               <div class="form-group row">

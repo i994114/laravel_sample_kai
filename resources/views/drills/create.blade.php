@@ -6,7 +6,7 @@
   @slot('title')
     {{ old('title') }}
   @endslot
-
+  
   @slot('category_name')
     {{ old('category_name') }}
   @endslot
