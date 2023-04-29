@@ -14,7 +14,21 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    @if (app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName() === 'register')
+                        ご登録いただいたアドレスに認証メールを送りました。
+                        メールをご確認いただき、メール内の認証ボタンを押してください。
+                    @else
+                        ログインしました！
+                        <a href="{{route('drills.mypage')}}">こちらから</a>マイページに移動できます。
+                    @endif
+
+                </div>
+                <div class="card-body">
+                    @if (request()->path() === 'register')
+                        ご登録いただいたアドレスに認証メールを送りました。
+                        メールをご確認いただき、メール内の認証ボタンを押してください。
+                    @endif
+
                 </div>
             </div>
         </div>

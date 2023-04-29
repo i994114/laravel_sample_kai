@@ -51,7 +51,8 @@ Route::get('/test', function () {
 
 
 
-Route::group(['middleware' => 'auth'], function() {
+//Route::group(['middleware' => 'auth'], function() {
+Route::middleware(['auth', 'verified'])->group(function() {
     Route::resource('drills', 'DrillsController');
     Route::get('/mypage', 'DrillsController@mypage')->name('drills.mypage');
 });
